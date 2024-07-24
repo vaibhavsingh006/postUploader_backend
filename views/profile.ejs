@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class=" bg-zinc-700">
+    <div class="w-full h-full bg-zinc-700 p-[20px_25px] text-white">
+        <div class=" flex justify-between">
+
+            <h1 class="text-2xl text-white font-bold mb-4">Hello, <%= user.name %>🙋‍♂️</h1>
+            <a href="/logout" class="bg-red-500 font-bold text-white p-[8px_15px_10px] h-[fit-content]">Logout</a>
+        </div>
+        <div>
+            <p class="font-lite">Create Post here</p>
+
+            <form action="/post" method="post" enctype="multipart/form-data" class="mt-8">
+                <input type="file" name="image">
+                <textarea name="content" class="w-1/4 resize-none bg-zinc-600 block pl-2"
+                    placeholder="What's in your mind_?" required></textarea>
+                <input type="submit"
+                    class="bg-blue-500 font-light mt-4 text-white pointer p-[6px_25px_8px] h-[fit-content]"
+                    value="Create Post">
+            </form>
+        </div>
+
+        <h1 class="text-2xl text-white font-bold mt-6 ml-6 ">Your Posts</h1>
+        <div class="p-[10px_30px_15px] flex flex-wrap">
+            <% user.posts.forEach(function(post){ %>
+                <div class="p-[10px_15px] bg-zinc-800 w-1/4 ml-4 mt-8 mr-4">
+                    <p class="font-light text-zinc-400">@<%= user.username%>
+                    </p>
+
+                    <div class="w-[150px] h-[150px] bg-blue-500 rounded">
+                        <img class="h-full w-full object-cover rounded" src="/images/uploades/<%= post.image %>"
+                            alt="img">
+                    </div>
+                    <p class="font-bold pl-2 py-4">
+                        <%= post.content%>
+                    </p>
+                    <p>
+                        <%= post.like.length %>likes
+                    </p>
+                    <div>
+                        <a class="text-blue-500 pl-2" href="/like/<%= post._id %>">
+                            like
+                        </a>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+
+    </div>
+</body>
+
+</html>
